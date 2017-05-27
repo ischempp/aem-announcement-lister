@@ -1,0 +1,38 @@
+<!--/*
+
+ Announcement Lister, list all version
+ @author ischempp
+ 
+ Displays all valid announcements. Displays the image, title (with link
+ to chosen location) and the announcement text. 
+
+*/-->
+<sly data-sly-use.announcementLister="org.fhcrc.centernet.components.AnnouncementLister"
+ data-sly-unwrap>
+ <div class="list-all-announcement-container" 
+  data-sly-list="${announcementLister.itemList}">
+  <div class="announcement ${itemList.last ? 'final' : ''}">
+   <sly data-sly-use.linkHelper="${'org.fhcrc.centernet.helper.LinkHelper' @ 
+   link=item.link}" data-sly-unwrap></sly>
+   <sly data-sly-test.noLink="${linkHelper.formattedLink == '#'}" 
+    data-sly-unwrap></sly>
+<!--/* Removing this for now as per request of Heather Marsh    
+   <div class="announcement-image">
+    <sly data-sly-test.hasImage="${item.src != ''}" data-sly-unwrap>
+     <a href="${linkHelper.formattedLink}" target="${item.isTargetBlank ? '_blank' : false}" data-sly-unwrap="${noLink}">
+      <img alt="${item.alt}" src="${item.src}"/>
+     </a>
+    </sly>
+   </div>
+*/-->
+   <div class="announcement-text-container ${hasImage ? '' : 'text-only'}">
+    <h3>
+     <a href="${linkHelper.formattedLink}" target="${item.isTargetBlank ? '_blank' : false}" data-sly-unwrap="${noLink}">
+      ${item.title}
+     </a>
+    </h3>
+    <div class="announcement-text">${item.announcement @ context='html'}</div>
+   </div>
+  </div>
+ </div>
+</sly>

@@ -1,0 +1,76 @@
+<!--/*
+
+ Announcement Lister component
+ @author ischempp
+ 
+ This component displays valid (On-Time is in the past and Off-Time is in the
+ future) pages with the CenterNet Announcement template. Author can choose
+ to "pin" announcements, meaning they will be listed first. All remaining 
+ announcements will be displayed in a random order.
+ 
+*/-->
+
+<!--/* main component display me */--> 
+<sly data-sly-use.announcements="${'org.fhcrc.centernet.components.AnnouncementLister'}"
+ data-sly-use.lister="announcementlister.js" 
+ data-sly-use.clientLib="${'/libs/granite/sightly/templates/clientlib.html'}"
+ data-sly-unwrap>
+ <div class="${lister.CONST.WRAPPER_CSS_CLASS}
+  ${announcements.isHomepage ? 'homepage' : 'not-on-homepage'}">
+  <h2 data-sly-test="${announcements.isHomepage}">Announcements</h2>
+  <div data-sly-test.noAnnouncements="${announcements.isEmpty}"
+   data-sly-use.emptyLinkHelper="${'org.fhcrc.centernet.helper.LinkHelper' @ link=lister.CONST.ANNOUNCEMENT_FORM_URL}">
+   <div class="announcement">
+    <h3>
+     <a href="${emptyLinkHelper.formattedLink}" target="_blank">
+      ${lister.CONST.EMPTY_ANNOUNCEMENT_HEADLINE}
+     </a>
+    </h3>
+    <div class="announcement-text">
+     ${lister.CONST.EMPTY_ANNOUNCEMENT_TEXT @ context='html'}
+    </div>
+   </div>
+  </div>
+  <sly data-sly-test="${!noAnnouncements}" data-sly-unwrap>
+   <div data-sly-list.pinList="${announcements.pinnedList}" class="pinned-announcements">
+    <div class="announcement pin">
+     <sly data-sly-use.linkHelper="${'org.fhcrc.centernet.helper.LinkHelper' @ 
+      link=pinList.linkURL}" data-sly-unwrap></sly>
+     <h3 class="${pinList.text ? '' : 'no-text'}">
+      <a href="${linkHelper.formattedLink}"
+       target="${pinList.isTargetBlank ? '_blank' : false}"
+       data-sly-unwrap="${linkHelper.formattedLink == '#'}">
+       ${pinList.title}
+      </a>
+     </h3>
+     <div class="announcement-text">${pinList.text @ context='html'}</div>
+    </div>
+   </div>
+   <div data-sly-list.remainderList="${announcements.remainderList}" class="remainder-announcements">
+    <div class="announcement remainder">
+     <sly data-sly-use.linkHelper="${'org.fhcrc.centernet.helper.LinkHelper' @ 
+      link=remainderList.linkURL}" data-sly-unwrap></sly>
+     <h3 class="${remainderList.text ? '' : 'no-text'}">
+      <a href="${linkHelper.formattedLink}"
+       target="${remainderList.isTargetBlank ? '_blank' : false}"
+       data-sly-unwrap="${linkHelper.formattedLink == '#'}">
+       ${remainderList.title}
+      </a>
+     </h3>
+     <div class="announcement-text">${remainderList.text @ context='html'}</div>
+    </div>
+   </div>
+   <div class="fadeout-gradient"></div>
+   <div class="see-more-container">
+    <a href="${lister.CONST.ANNOUNCEMENT_LANDING_PAGE_PATH}">See all <span id="total-announcements"></span> announcements</a>
+    <i class="sprites large-right-arrow-turquoise"></i>
+   </div>
+   <!--/* Only include the JavaScript if there are remainder items AND this is
+   the CenterNet homepage*/-->
+   <js data-sly-test="${announcements.remainderListLength > 0 && announcements.isHomepage}"
+    data-sly-call="${clientLib.js @ 
+    categories='apps.centernet.components.announcementlister'}"
+    data-sly-unwrap></js>
+  </sly>
+ </div>
+</sly>

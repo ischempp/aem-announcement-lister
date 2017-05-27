@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:sling="http://sling.apache.org/jcr/sling/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:mix="http://www.jcp.org/jcr/mix/1.0"
+    jcr:primaryType="cq:Page">
+    <jcr:content
+        cq:lastModified="{Date}2016-06-06T13:04:18.563-07:00"
+        cq:lastModifiedBy="admin"
+        cq:targetPath="/content/centernet/en/announcements"
+        cq:targetTemplate="/apps/centernet/templates/announcement"
+        jcr:description="Scaffolding to Create/Update CenterNet Announcement Pages."
+        jcr:isCheckedOut="{Boolean}true"
+        jcr:mixinTypes="[mix:versionable]"
+        jcr:primaryType="cq:PageContent"
+        jcr:title="CanterNet Announcement Scaffolding"
+        jcr:uuid="7f40326a-bd53-4404-ac75-7bd61a2c38fc"
+        sling:resourceType="wcm/scaffolding/components/scaffolding">
+        <dialog/>
+    </jcr:content>
+</jcr:root>

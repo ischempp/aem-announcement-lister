@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0"
+ jcr:primaryType="cq:Dialog"
+ title="Announcement Lister"
+ headerAsText="{Boolean}true"
+ xtype="dialog">
+ <items jcr:primaryType="cq:TabPanel">
+  <items jcr:primaryType="cq:WidgetCollection">
+   <options
+    jcr:primaryType="cq:Panel"
+    title="Options">
+    <items jcr:primaryType="cq:WidgetCollection">
+     <pinnedAnnouncements
+      jcr:primaryType="cq:Widget"
+      baseName="pinned_"
+      fieldLabel="Pinned Announcements"
+      fieldDescription="Pinned announcements will be placed at the top of the announcement lister in the order listed"
+      name="./pinnedAnnouncements"
+      xtype="multifield">
+      <fieldConfig
+       jcr:primaryType="nt:unstructured"
+       rootPath="/content/centernet/en/announcements"
+       xtype="pathfield"/>
+     </pinnedAnnouncements>
+    </items>
+   </options>
+  </items>
+ </items>
+</jcr:root>

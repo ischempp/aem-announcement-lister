@@ -1,0 +1,45 @@
+<!--/*
+
+ Announcement Lister, random version
+ @author ischempp
+ 
+ Displays a single announcement, chosen at random from the list of all 
+ valid announcements. Displays only the title (with link to chosen location)
+ and the announcement text. Also displays "1 of X" where X is the total number
+ of valid announcements.
+ 
+ Randomization occurs on the client side to allow for caching the homepage.
+
+*/-->
+<sly data-sly-use.announcementLister="org.fhcrc.centernet.components.AnnouncementLister"
+ data-sly-use.clientLib="${'/libs/granite/sightly/templates/clientlib.html'}"
+ data-sly-use.lister="announcementlister.js"
+ data-sly-unwrap>
+ <h2>Announcement</h2>
+ <div class="random-announcement-container" 
+  data-sly-list="${announcementLister.itemList}">
+  <div class="announcement ${!itemList.first ? 'invalid' : ''}">
+   <sly data-sly-use.linkHelper="${'org.fhcrc.centernet.helper.LinkHelper' @ 
+   link=item.link}" data-sly-unwrap></sly>
+   <h3>
+    <a href="${linkHelper.formattedLink}"
+       target="${item.isTargetBlank ? '_blank' : false}"
+     data-sly-unwrap="${linkHelper.formattedLink == '#'}">
+     ${item.title}
+    </a>
+   </h3>
+   <div class="announcement-text">${item.announcement @ context='html'}</div>
+  </div>
+ </div>
+ <div class="announcement-total">
+   1 of ${announcementLister.total}
+ </div>
+ <div class="announcement-more">
+  <a href="${lister.CONST.ANNOUNCEMENT_LANDING_PAGE_PATH}">
+   See more <i class="sprites large-right-arrow-turquoise"></i>
+  </a>
+ </div>
+ <js data-sly-call="${clientLib.js @ 
+  categories='apps.centernet.components.announcementlister'}"
+  data-sly-unwrap></js>
+</sly>
